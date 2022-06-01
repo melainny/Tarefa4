@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tarefas</title>
+    <script scr="main.js"></script>
+</head>
+<section>
+    <img src="">
+    </section>
+
+<body>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+            border: none;
+            outline: none;
+        }
+
+        .content{
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            width: 1000px;
+        }
+
+        body{
+            background-color: #ffcbdb;
+        }
+
+        h1{
+            margin: top 16px; ;
+            font-size: 48px;
+            text-shadow: 2px 2px 2px #ff007f ;
+            font-family: cursive;  
+            text-align: center
+            
+            }
+        
+        input{
+            border-bottom: 1px solid #333333;
+            margin-right: 16px;            
+            font-size: 24px;
+            margin-top: 32px;
+            width: 100%;                
+            display: flex;            
+            background-color: antiquewhite;
+            font-family: cursive;
+        }
+
+        button{
+            margin-top: 22px;
+            width: 70%;            
+            justify-content: space-between;
+            background-color: white;
+            font-family: cursive;
+            text-align: center;
+        }
+
+        div{
+            text-align: center;
+        }
+                        
+    </style>
+
+    <div class="contert">
+<h1>Lista de tarefas</h1>
+         <div class="div1">
+            <input type="text" placeholder="Digite uma tarefa...">
+            <button>Adicionar</button>
+
+         </div>
+        <div class="div2">
+            <ul></ul>
+        </div>
+    </div>  
+
+    <script>
+const elementolista = document.querySelector('ul')
+const elementoInput = document.querySelector('input')
+const elementoBotao = document.querySelector('button')
+
+const tarefas = []
+
+function mostraTarefas() {
+    elementolista.innerHTML = ''
+
+    for (tarefa of tarefas) {
+        const elementoTarefa = document.createElement('li')
+        const textoTarefa = document.createTextNode(tarefa)
+
+        const elementoLink = document.createElement('a')
+        const pos = tarefas.indexOf(tarefa)
+        const linkText = document.createTextNode('x')
+        elementoLink.appendChild(linkText)
+
+        elementoLink.setAttribute('href', '#')
+        elementoLink.setAttribute('onclick', `deletaTarefa(${pos})`)
+
+            elementoTarefa.appendChild(textoTarefa)
+            elementolista.appendChild(elementoTarefa)
+            elementoTarefa.appendChild(elementoLink)
+    }
+} 
+mostraTarefas()
+function addTarefa() {
+    const textoTarefa = elementoInput.value
+    tarefas.push(textoTarefa)
+    elementoInput.value = ''
+
+    mostraTarefas()
+
+}
+elementoBotao.setAttribute('onclick', 'addTarefa()')
+    
+function deletaTarefa(pos) {
+    tarefas.splice(pos, 1)
+    mostraTarefas()
+}
+
+function mostraTarefas() { 
+    elementolista.innerHTML = ''
+    for (tarefa of tarefas) { 
+    const elementoTarefa = document.createElement('li') 
+    const textoTarefa = document.createTextNode(tarefa) 
+  
+    const elementoLink = document.createElement('a') 
+    const pos = tarefas.indexOf(tarefa) 
+    const linkText = document.createTextNode('x') 
+         
+         var elementoEdit = document.createElement('a');
+         var textoEdit = document.createTextNode('edit');
+         
+        elementoEdit.appendChild(textoEdit);
+        elementoEdit.style.marginLeft = "4px";
+        elementoEdit.setAttribute('href', '#') 
+        elementoEdit.setAttribute('onclick', `editaTarefa(${pos})`) 
+         
+    elementoLink.appendChild(linkText) 
+  
+    elementoLink.setAttribute('href', '#') 
+    elementoLink.setAttribute('onclick', `deletaTarefa(${pos})`) 
+  
+    elementoTarefa.appendChild(textoTarefa) 
+    elementolista.appendChild(elementoTarefa) 
+    elementoTarefa.appendChild(elementoLink) 
+             elementoTarefa.appendChild(elementoEdit);
+ } 
+ }
+ function editaTarefa(pos) {
+ 		 var novoValor = prompt("Novo nome da tarefa", tarefas[pos]);
+  	 if(novoValor) {
+     	tarefas[pos] = novoValor;
+     }
+     mostraTarefas() 
+ }
+    </script>
+</body>
+</html>
